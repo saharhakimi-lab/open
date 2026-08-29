@@ -1,0 +1,435 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>שיעור פתיחה והיכרות - עולם רשתות התקשורת עם סהר</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Rubik:wght=400;500;600;700;800&family=Fira+Code:wght=400;500;600;700&display=swap" rel="stylesheet">
+<script src="https://cdn.tailwindcss.com"></script>
+<script src="https://unpkg.com/lucide@latest"></script>
+<style>
+:root {
+  --bg: #FAF7F0;
+  --panel: #FFFFFF;
+  --panel2: #F3EEE3;
+  --panel3: #E8E1D1;
+  --border: #D8D0C0;
+  --border2: #C4BBA8;
+  --text: #2D3748;
+  --muted: #5A6578;
+  --muted2: #718096;
+  --primary-blue: #2563EB;
+  --static-blue: #1D4ED8;
+  --ospf-gold: #D97706;
+  --bg-green: #059669;
+  --cyber-purple: #7C3AED;
+  --radius: 14px;
+}
+* { box-sizing: border-box; }
+body {
+  margin: 0; background: var(--bg); color: var(--text);
+  font-family: 'Rubik', sans-serif; line-height: 1.6;
+  padding-bottom: 140px;
+}
+.wrap { max-width: 1100px; margin: 0 auto; padding: 0 20px; }
+h1, h2, h3 { font-weight: 700; margin: 0 0 8px; color: #1A202C; }
+p { margin: 0 0 12px; color: var(--muted); }
+
+.ltr { direction: ltr; display: inline-block; unicode-bidi: embed; }
+.code-text { font-family: 'Fira Code', monospace; direction: ltr; display: inline-block; }
+
+/* סרגל התקדמות השיעור */
+.progressbar { position: sticky; top: 0; z-index: 150; background: rgba(250, 247, 240, 0.95); backdrop-filter: blur(8px); border-bottom: 1px solid var(--border); padding: 14px 20px; }
+.progressbar-inner { max-width: 1100px; margin: 0 auto; display: flex; align-items: center; gap: 14px; }
+.progressbar-title { font-weight: 700; font-size: 15px; color: #1A202C; }
+.steps { display: flex; gap: 6px; flex: 1; }
+.step { flex: 1; height: 8px; border-radius: 4px; background: var(--panel3); overflow: hidden; }
+.step.done { background: var(--bg-green); }
+.step.active { background: var(--cyber-purple); }
+.progress-pct { font-size: 13px; color: var(--muted); font-family: 'Fira Code', monospace; }
+
+/* כותרת Hero */
+header.hero { padding: 40px 0 25px; border-bottom: 1px solid var(--border); }
+.eyebrow { display: inline-block; font-family: 'Fira Code', monospace; font-size: 12px; color: var(--cyber-purple); background: rgba(124, 58, 237, 0.1); border: 1px solid rgba(124, 58, 237, 0.25); padding: 5px 14px; border-radius: 20px; margin-bottom: 14px; }
+
+.hero-title-wrap { display: flex; align-items: center; gap: 20px; margin-bottom: 12px; }
+.hero-avatar-spin { width: 75px; height: 75px; object-fit: contain; flex-shrink: 0; animation: spinSlow 12s linear infinite; filter: drop-shadow(0 4px 6px rgba(0,0,0,0.1)); }
+
+@keyframes spinSlow { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
+
+h1.title { font-size: 38px; margin: 0; color: #1A202C; }
+h1.title span { color: var(--cyber-purple); }
+
+section { padding: 40px 0; border-top: 1px solid var(--border); }
+.section-head { margin-bottom: 22px; display: flex; justify-content: space-between; align-items: flex-end; }
+.section-num { font-family: 'Fira Code', monospace; color: var(--cyber-purple); font-size: 13px; font-weight: 700; }
+.section-title { font-size: 28px; color: #1A202C; margin: 0; font-weight: 800; }
+.time-badge { background: #FEF3C7; color: var(--ospf-gold); font-weight: 800; font-size: 15px; padding: 8px 18px; border-radius: 20px; border: 1.5px solid #FCD34D; font-family: 'Fira Code', monospace; shadow: 0 2px 4px rgba(0,0,0,0.05); }
+
+.card { background: var(--panel); border: 1px solid var(--border); border-radius: var(--radius); padding: 25px; box-shadow: 0 4px 10px rgba(0,0,0,0.03); margin-bottom: 20px; }
+
+/* שלבי השיעור ועיצובים מיוחדים */
+.phase-card { border-right: 6px solid var(--cyber-purple); background: var(--panel); }
+.phase-card.sim { border-right-color: var(--static-blue); background: #FAF9F5; }
+.phase-card.debrief { border-right-color: var(--ospf-gold); }
+.phase-card.close { border-right-color: var(--bg-green); }
+
+.badge-tag { display: inline-block; font-size: 13px; font-weight: 800; padding: 5px 14px; border-radius: 8px; margin-bottom: 12px; }
+.badge-purple { background: #F3E8FF; color: var(--cyber-purple); }
+.badge-blue { background: #DBEAFE; color: var(--static-blue); border: 1px solid #BFDBFE; }
+.badge-gold { background: #FEF3C7; color: var(--ospf-gold); border: 1px solid #FCD34D; }
+.badge-green { background: #D1FAE5; color: var(--bg-green); }
+
+/* עיצוב משודרג לחלק 2: הסימולציה החיה */
+.nametag-info-box { 
+  background: #FFFBEB; 
+  border: 2px solid #FCD34D; 
+  border-right: 8px solid var(--ospf-gold); 
+  border-radius: 14px; 
+  padding: 22px; 
+  margin-bottom: 25px; 
+  box-shadow: 0 4px 6px -1px rgba(0,0,0,0.05);
+}
+.nametag-info-box h3 { color: #92400E; font-size: 20px; margin-bottom: 10px; display: flex; align-items: center; gap: 8px; }
+.nametag-info-box p { color: #78350F; font-size: 16px; font-weight: 500; margin: 0; line-height: 1.7; }
+
+.sim-step-box { 
+  background: #FFFFFF; 
+  border: 2px solid #CBD5E1; 
+  border-radius: 14px; 
+  padding: 22px; 
+  margin-bottom: 20px; 
+  transition: all 0.2s ease;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.03);
+}
+.sim-step-box:hover { border-color: var(--static-blue); transform: translateY(-2px); box-shadow: 0 6px 12px rgba(0,0,0,0.06); }
+.sim-step-header { display: flex; align-items: center; justify-content: space-between; gap: 10px; margin-bottom: 12px; border-bottom: 2px solid #F1F5F9; padding-bottom: 10px; }
+.sim-step-title { font-weight: 800; font-size: 21px; color: #0F172A; display: flex; align-items: center; gap: 10px; }
+.sim-step-tag { font-family: 'Fira Code', monospace; font-size: 13px; font-weight: 700; background: #E0E7FF; color: var(--static-blue); padding: 4px 10px; border-radius: 6px; }
+
+.sim-step-body { font-size: 16px; color: #334155; line-height: 1.7; }
+.sim-step-body strong { color: #0F172A; font-weight: 700; }
+.sim-step-details { background: #F8FAFC; border-right: 4px solid #94A3B8; padding: 12px 16px; border-radius: 6px; margin-top: 12px; font-size: 15px; color: #475569; }
+.sim-step-insight { background: #EFF6FF; border-right: 4px solid var(--static-blue); padding: 12px 16px; border-radius: 6px; margin-top: 10px; font-size: 15px; color: #1E40AF; font-weight: 500; }
+
+/* עיצוב בהיר מחדש לחלק 3: לוח מיפוי מושגים */
+.concept-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 18px; margin-top: 20px; }
+.concept-item-light { 
+  background: #FFFFFF; 
+  color: #1E293B; 
+  padding: 20px; 
+  border-radius: 12px; 
+  border: 1px solid var(--border); 
+  border-top: 5px solid var(--cyber-purple); 
+  box-shadow: 0 4px 6px rgba(0,0,0,0.03);
+  transition: transform 0.2s ease;
+}
+.concept-item-light:hover { transform: translateY(-3px); box-shadow: 0 8px 15px rgba(0,0,0,0.06); }
+.concept-item-light .term { font-family: 'Fira Code', monospace; color: var(--cyber-purple); font-weight: 800; font-size: 18px; margin-bottom: 6px; }
+.concept-item-light .hebrew-term { font-weight: 700; font-size: 16px; color: #0F172A; margin-bottom: 8px; border-bottom: 1px solid #F1F5F9; padding-bottom: 4px; }
+.concept-item-light .desc { font-size: 14px; color: var(--muted); line-height: 1.6; }
+
+.footer-note { text-align: center; color: var(--muted2); font-size: 13px; margin-top: 50px; }
+</style>
+</head>
+<body>
+
+<div class="progressbar">
+  <div class="progressbar-inner">
+    <div class="progressbar-title">🌐 שיעור פתיחה: מערך שיעור אינטראקטיבי (60 דק')</div>
+    <div class="steps">
+      <div class="step active" id="st1"></div>
+      <div class="step" id="st2"></div>
+      <div class="step" id="st3"></div>
+      <div class="step" id="st4"></div>
+    </div>
+    <div class="progress-pct" id="progressPct">0% הושלם</div>
+  </div>
+</div>
+
+<div class="wrap">
+
+<header class="hero">
+  <div class="hero-text">
+    <div class="eyebrow">Introduction to Computer Networking · Interactive Lesson Plan</div>
+    <div class="hero-title-wrap">
+      <img src="https://lh3.googleusercontent.com/d/1fzqv93VKIW_VT8-e1HdJxBmbU2sFnwlb" alt="אווטר מסתובב" class="hero-avatar-spin">
+      <h1 class="title">שיעור פתיחה והיכרות - <span>עולם רשתות התקשורת</span></h1>
+    </div>
+    <p class="subtitle">מערך שיעור חווייתי ואקטיבי בן 60 דקות. הלמידה מבוססת סימולציה פיזית בכיתה, חוויית בעיות תקשורת בזמן אמת, ומיפוי המושגים שנובע מתוך התנסות התלמידים.</p>
+  </div>
+</header>
+
+<!-- חלק 1: שאלת פתיחה -->
+<section id="part1">
+  <div class="section-head">
+    <div>
+      <div class="section-num">חלק 01 — סיעור מוחות וסקרנות</div>
+      <h2 class="section-title">שאלת הפתיחה: מה קורה כשלוחצים 'שלח'?</h2>
+    </div>
+    <div class="time-badge">⏱️ 5-7 דקות</div>
+  </div>
+
+  <div class="card phase-card">
+    <span class="badge-tag badge-purple">אופן הפעלה: דיון פרונטלי פתוח + איסוף על הלוח</span>
+    <h3>❓ השאלה המנחה (ללא הקדמות):</h3>
+    <blockquote style="font-size: 20px; font-weight: 700; color: #1E293B; border-right: 5px solid var(--cyber-purple); padding-right: 16px; margin: 16px 0; background: #F8F5FF; padding: 14px; border-radius: 8px;">
+      "כשאתם שולחים הודעת וואטסאפ להורים, מה בעצם קורה בין הרגע שלחצתם 'שלח' לרגע שהיא מגיעה ליעד?"
+    </blockquote>
+    <p style="font-size: 16px;"><b>💡 הנחיות פדגוגיות למורה:</b></p>
+    <ul style="padding-right: 22px; color: var(--muted); font-size: 15px; line-height: 1.8;">
+      <li>תן לתלמידים לנחש בקול רם — <b>אל תתקן ואל תחשוף תשובות נכונות!</b></li>
+      <li>רשום את כל ההשערות שלהם על הלוח (גם את הדמיוניות ביותר).</li>
+      <li><b>המטרה:</b> בניית סקרנות והמחשה לתלמידים כמה הם לא יודעים על פעולה שהם מבצעים עשרות פעמים ביום.</li>
+    </ul>
+  </div>
+</section>
+
+<!-- חלק 2: הסימולציה החיה (מעוצב מחדש - מוגדל ומפורט) -->
+<section id="part2">
+  <div class="section-head">
+    <div>
+      <div class="section-num">חלק 02 — הלב של השיעור</div>
+      <h2 class="section-title">הסימולציה החיה: רשת אנושית בכיתה</h2>
+    </div>
+    <div class="time-badge">⏱️ 25-30 דקות</div>
+  </div>
+
+  <!-- כרטיסיית מצייני שם ומספר מודגשת -->
+  <div class="nametag-info-box">
+    <h3>🏷️ כלי מפתח לניהול השיעור וההיכרות: מצייני תלמיד (שם + מספר)</h3>
+    <p>
+      לפני תחילת הסימולציה, חלוק לכל תלמיד <b>מציין (תג שם בולט) ובו שמו הפרטי + מספר מזהה ייחודי (כתובת)</b>.<br>
+      <b>מטרה כפולה:</b> 
+      1. <b>היכרות מהירה:</b> מסייע לך כמורה חדש לזהות ולפנות אל התלמידים בשמם כבר בשיעור הראשון.<br>
+      2. <b>פונקציה טכנולוגית:</b> המספר משמש בתוך הסימולציה כ"כתובת IP" המגדירה יעד למשלוח הפתקים!
+    </p>
+  </div>
+
+  <div class="card phase-card sim">
+    <span class="badge-tag badge-blue">אופן הפעלה: התנסות פיזית אקטיבית ודינמית של כל הכיתה</span>
+    <p style="font-size: 17px; color: #1E293B; font-weight: 600; margin-bottom: 20px;">
+      פזר את התלמידים במרחב הכיתה. הנחה אותם לשלוח פתקים מקופלים ממוענים (לפי מספר המציין של תלמיד היעד). שנה את חוקי המשחק בהדרגה:
+    </p>
+
+    <!-- שלב א -->
+    <div class="sim-step-box">
+      <div class="sim-step-header">
+        <div class="sim-step-title">
+          <span>🔗 שלב א': טופולוגיית שרשרת (שכן לשכן)</span>
+        </div>
+        <span class="sim-step-tag">Step 1: Bus / Chain</span>
+      </div>
+      <div class="sim-step-body">
+        <strong>איך מפעילים בפועל?</strong> הנחה את התלמידים שכל אחד מורשה להעביר את הפתק אך ורק לתלמיד שיושב בצמוד אליו פיזית בטור/בשורה.
+      </div>
+      <div class="sim-step-details">
+        📝 <b>מה מנחים למורשים?</b> "תלמיד 1 רוצה לשלוח פתק לתלמיד 8 - העבירו את הפתק יד ביד דרך כל החוליות בדרך."
+      </div>
+      <div class="sim-step-insight">
+        📍 <b>מה התלמידים חווים ומגלים?</b> מעבר איטי מאוד, מסורבל, תלמיד באמצע שמציץ או מעכב את הפתק (חוסר אמינות ואבטחה).
+      </div>
+    </div>
+
+    <!-- שלב ב -->
+    <div class="sim-step-box">
+      <div class="sim-step-header">
+        <div class="sim-step-title">
+          <span>תלמיד מרכזי ("נתב / הראוטר") 🎯 שלב ב':</span>
+        </div>
+        <span class="sim-step-tag">Step 2: Central Router</span>
+      </div>
+      <div class="sim-step-body">
+        <strong>איך מפעילים בפועל?</strong> בחר תלמיד אחד שיעמוד במרכז הכיתה כ"נתב". כעת אסור להעביר פתק לשכן — כל הפתקים בכיתה חייבים להימסר לנתב המרכזי, והוא בלבד מעביר אותם ליעד לפי המספר שנרשם.
+      </div>
+      <div class="sim-step-details">
+        📝 <b>מה מנחים למורשים?</b> "רוצים לשלוח פתק? הביאו אותו לנתב במרכז, קראו את המספר הרשום, והוא ינווט אותו לתלמיד הנכון."
+      </div>
+      <div class="sim-step-insight">
+        📍 <b>מה התלמידים חווים ומגלים?</b> תפיסת מושג הכתובת והכוונה מרכזית, לצד תסכול מעומס כבד על הנתב שיוצר תור ארוך ואיטיות (צוואר בקבוק / Bottleneck).
+      </div>
+    </div>
+
+    <!-- שלב ג -->
+    <div class="sim-step-box">
+      <div class="sim-step-header">
+        <div class="sim-step-title">
+          <span>⚡ שלב ג': שידור מקביל ("התנגשות")</span>
+        </div>
+        <span class="sim-step-tag">Step 3: Collision</span>
+      </div>
+      <div class="sim-step-body">
+        <strong>איך מפעילים בפועל?</strong> תן הוראה לשני תלמידים משני קצוות הכיתה לשלוח פתק בו-זמנית לאותו תלמיד יעד (או לאותו נתב).
+      </div>
+      <div class="sim-step-details">
+        📝 <b>מה מנחים למורשים?</b> "3, 2, 1 - שלחו עכשיו שניהם ביחד את הפתק לתלמיד מספר 5!"
+      </div>
+      <div class="sim-step-insight">
+        📍 <b>מה התלמידים חווים ומגלים?</b> הנתב/המקבל אינו יכול להקשיב לשניהם יחד, הפתקים מתבלבלים או נופלים. נוצר דיון טבעי: איך קובעים מי מדבר ראשון ומה עושים כשיש התנגשות? (הבסיס לפרוטוקול CSMA/CD).
+      </div>
+    </div>
+
+    <!-- שלב ד -->
+    <div class="sim-step-box">
+      <div class="sim-step-header">
+        <div class="sim-step-title">
+          <span>💥 שלב ד': תלמיד "מתנתק" (תקלת קישור)</span>
+        </div>
+        <span class="sim-step-tag">Step 4: Link Failure</span>
+      </div>
+      <div class="sim-step-body">
+        <strong>איך מפעילים בפועל?</strong> תוך כדי העברת פתק בדרך, סמן לתלמיד מפתח לקום במפתיע ולעזוב את מקומו ("הכבל נתלש / הקישור נפל").
+      </div>
+      <div class="sim-step-details">
+        📝 <b>מה מנחים למורשים?</b> "תלמיד 4 יצא מכלל פעולה. איך הפתק יגיע כעת לתלמיד 8?"
+      </div>
+      <div class="sim-step-insight">
+        📍 <b>מה התלמידים חווים ומגלים?</b> חוסר אונים של הפתק שתקוע באמצע. מפה עולה הצורך בחיבורים חלופיים, יתירות (Redundancy) ופרוטוקולי ניתוב חכמים.
+      </div>
+    </div>
+
+    <div style="background:#FEF2F2; border: 2px solid #FECACA; border-radius:12px; padding:16px; margin-top:15px; font-size:15px; color:#991B1B;">
+      ⛔ <b>כלל זהב פדגוגי למורה:</b> במהלך הסימולציה <u>אל תשתמש במונחים טכניים</u> (אל תגיד IP, אל תגיד CSMA/CD)! תן להם לחוות את הבעיה, להתעצבן מהאיטיות ולהעלות בעצמם את השאלה: "מורה, איך פותרים את זה?".
+    </div>
+  </div>
+</section>
+
+<!-- חלק 3: דיבריפינג ומיפוי מושגים (רקע בהיר לקוביות) -->
+<section id="part3">
+  <div class="section-head">
+    <div>
+      <div class="section-num">חלק 03 — חיבור החוויה לתאוריה</div>
+      <h2 class="section-title">דיבריפינג ומיפוי מושגים על הלוח</h2>
+    </div>
+    <div class="time-badge">⏱️ 15-20 דקות</div>
+  </div>
+
+  <div class="card phase-card debrief">
+    <span class="badge-tag badge-gold">אופן הפעלה: דיון מסכם + מיגור תסכולים והגדרת מונחים</span>
+    <p style="font-size: 16px; color: #334155;">
+      כעת מעלים על הלוח את הבעיות שהתלמידים חוו בסימולציה, ומקשרים אותן למושגים המקצועיים מעולם הרשתות. מכיוון שהם הרגישו את הבעיה "בידיים", המונחים נדבקים בקלות!
+    </p>
+
+    <!-- גריד קוביות ברקע בהיר -->
+    <div class="concept-grid">
+      <div class="concept-item-light">
+        <div class="term">IP Address</div>
+        <div class="hebrew-term">כתובת IP / זיהוי</div>
+        <div class="desc">מספר הזיהוי הייחודי במציין של כל תלמיד שאיפשר לדעת למי מיועד הפתק.</div>
+      </div>
+
+      <div class="concept-item-light">
+        <div class="term">Router</div>
+        <div class="hebrew-term">נתב (ראוטר)</div>
+        <div class="desc">התלמיד במרכז שקיבל פתקים, קרא את כתובת היעד והחליט לאן ולאיזה נתיב להעבירם.</div>
+      </div>
+
+      <div class="concept-item-light">
+        <div class="term">Collision</div>
+        <div class="hebrew-term">התנגשות מידע</div>
+        <div class="desc">כששני תלמידים ניסו להעביר הודעה לאותו מקום באותו הזמן והנושא התבלבל.</div>
+      </div>
+
+      <div class="concept-item-light">
+        <div class="term">Protocol</div>
+        <div class="hebrew-term">פרוטוקול תקשורת</div>
+        <div class="desc">סט החוקים והכללים שהגדרנו בכל שלב כדי להבטיח שהמידע יעבור בצורה מסודרת.</div>
+      </div>
+
+      <div class="concept-item-light">
+        <div class="term">Topology</div>
+        <div class="hebrew-term">טופולוגיית רשת</div>
+        <div class="desc">מבנה וצורת החיבורים הפיזיים בין התלמידים בכיתה (שרשרת, כוכב, רשת מלאה).</div>
+      </div>
+
+      <div class="concept-item-light">
+        <div class="term">Redundancy</div>
+        <div class="hebrew-term">יתירות ומעקף</div>
+        <div class="desc">הצורך בנתיבים חלופיים ברשת למקרה שתלמיד (רכיב) בדרך יתנתק או ייפול.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- חלק 4: סגירה והיכרות אישית -->
+<section id="part4">
+  <div class="section-head">
+    <div>
+      <div class="section-num">חלק 04 — יצירת קשר אישי והחזר רפלקטיבי</div>
+      <h2 class="section-title">סיכום וסגירה: חיבור אישי למגמה</h2>
+    </div>
+    <div class="time-badge">⏱️ 5-10 דקות</div>
+  </div>
+
+  <div class="card phase-card close">
+    <span class="badge-tag badge-green">אופן הפעלה: סבב שיתוף קצר או כתיבה אישית</span>
+    <p style="font-size: 16px;">סגירת השיעור באמצעות שתי שאלות אישיות ומעצימות:</p>
+
+    <div style="display:grid; grid-template-columns: 1fr 1fr; gap:16px; margin-top:14px;">
+      <div style="background:#F0FDF4; padding:18px; border-radius:12px; border:1px solid #BBF7D0; border-right:5px solid var(--bg-green);">
+        <b style="color:#166534; font-size:17px;">💬 שאלה 1:</b>
+        <p style="margin:6px 0 0; font-size:15px; color:#14532D; font-weight:500;">"למה בחרתם להצטרף דווקא למגמת תקשוב/תקשורת?"</p>
+      </div>
+      <div style="background:#F0FDF4; padding:18px; border-radius:12px; border:1px solid #BBF7D0; border-right:5px solid var(--bg-green);">
+        <b style="color:#166534; font-size:17px;">🎯 שאלה 2:</b>
+        <p style="margin:6px 0 0; font-size:15px; color:#14532D; font-weight:500;">"עם איזה ידע או יכולת אתם מקווים לצאת בסוף השנה?"</p>
+      </div>
+    </div>
+
+    <div style="margin-top:18px; font-size:14px; color:var(--muted); background:#F8FAFC; padding:12px; border-radius:8px;">
+      <b>🌱 ערך מוסף למורה:</b> חלק זה בונה אמון וקשר אישי ראשוני איתך כמורה החדש, ומספק לך תמונה עדכנית על ציפיות הכיתה לצורך תכנון השיעורים הבאים.
+    </div>
+  </div>
+</section>
+
+<div class="footer-note">מערך שיעור פתיחה ברשתות תקשורת · נבנה עבור סהר · 2026</div>
+</div>
+
+<!-- כפתור עזרה צף -->
+<div class="fixed bottom-6 left-6 z-50 no-print">
+    <button id="openHelpModalBtn" class="flex items-center gap-3 bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-white font-bold py-2.5 px-5 rounded-full shadow-lg transition-all duration-300 transform hover:scale-105 border border-white/20">
+        <div class="w-8 h-8 rounded-full border border-white/40 overflow-hidden bg-slate-950 flex-shrink-0">
+            <img src="https://lh3.googleusercontent.com/d/1fzqv93VKIW_VT8-e1HdJxBmbU2sFnwlb" alt="אווטר בוט עזרה" class="w-full h-full object-cover">
+        </div>
+        <span>בוט עזרה של סהר</span>
+    </button>
+</div>
+
+<!-- חלונית עזרה צפה -->
+<div id="helpModal" class="fixed inset-0 bg-slate-900/60 backdrop-blur-sm z-[100] hidden flex items-center justify-center p-4">
+    <div class="bg-white border border-stone-200 rounded-2xl p-6 max-w-sm w-full text-center relative shadow-2xl" id="helpModalContent">
+        <button id="closeHelpModalBtn" class="absolute top-4 right-4 text-slate-400 hover:text-slate-600 p-1 rounded-lg">
+            <i data-lucide="x" class="w-5 h-5"></i>
+        </button>
+        <div class="w-20 h-20 rounded-full mx-auto mb-4 border-2 border-purple-500 p-1 bg-stone-100 shadow-md overflow-hidden">
+            <img src="https://lh3.googleusercontent.com/d/1fzqv93VKIW_VT8-e1HdJxBmbU2sFnwlb" alt="תמונת בוט עזרה" class="w-full h-full object-cover rounded-full">
+        </div>
+        <h3 class="text-lg font-bold text-slate-800 mb-2">צריכים רעיונות לשיעור?</h3>
+        <p class="text-sm text-slate-600 mb-6 leading-relaxed">הבוט של סהר זמין לסייע בתכנון משימות, ניהול דיונים בכיתה ורעיונות פדגוגיים נוספים!</p>
+        <a href="https://gemini.google.com/gem/167016ac4a4b/66c3b83daa7940ef?usp=sharing" target="_blank" class="w-full flex items-center justify-center gap-2 bg-purple-600 hover:bg-purple-700 text-white font-bold py-3 px-4 rounded-xl transition-all shadow-md">
+            <span>פתיחת צ'אט עזרה</span>
+            <i data-lucide="external-link" class="w-4 h-4"></i>
+        </a>
+    </div>
+</div>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    if (typeof lucide !== 'undefined') lucide.createIcons();
+
+    const modal = document.getElementById('helpModal');
+    const modalContent = document.getElementById('helpModalContent');
+    const openBtn = document.getElementById('openHelpModalBtn');
+    const closeBtn = document.getElementById('closeHelpModalBtn');
+
+    if(openBtn && modal && modalContent && closeBtn) {
+        openBtn.addEventListener('click', () => { modal.classList.remove('hidden'); });
+        closeBtn.addEventListener('click', () => { modal.classList.add('hidden'); });
+        modal.addEventListener('click', (e) => { if (e.target === modal) modal.classList.add('hidden'); });
+    }
+});
+</script>
+</body>
+</html>

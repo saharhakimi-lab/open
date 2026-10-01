@@ -6,7 +6,7 @@
 <title>שיעור פתיחה והיכרות - עולם רשתות התקשורת עם סהר</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Rubik:wght@400;500;600;700;800&family=Fira+Code:wght=400;500;600;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Rubik:wght@400;500;600;700;800&family=Fira+Code:wght@400;500;600;700&display=swap" rel="stylesheet">
 <script src="https://cdn.tailwindcss.com"></script>
 <script src="https://unpkg.com/lucide@latest"></script>
 <style>
@@ -230,18 +230,13 @@ section { padding: 45px 0; border-top: 1px solid var(--border); }
 .footer-note { text-align: center; color: var(--muted2); font-size: 15px; margin-top: 60px; font-weight: 500; }
 
 /* ===== DESIGN OVERRIDE ===== */
-/* ===== Sahar MAC Lesson – Design Override =====
-   הדביקו את כל הבלוק הזה בתוך <style> הקיים, בסופו (אחרי כל הכללים הקיימים).
-   אפס שינוי בתוכן / ב-HTML / ב-JS. */
-
 :root{
-  --red-soft:#fecaca;      /* אדום בהיר – טאב פעיל */
+  --red-soft:#fecaca;
   --red-mid:#fca5a5;
   --red-ink:#7f1d1d;
   --ink:#1e1b4b;
 }
 
-/* ---------- רקע אורורה חי ---------- */
 body{
   background:#fdf8f4;
   position:relative;
@@ -263,7 +258,6 @@ body::before{
   100%{transform:translate3d(3%,-4%,0) scale(1.15) rotate(6deg)}
 }
 
-/* ---------- כותרת עליונה זכוכית ---------- */
 header.sticky{
   background:rgba(255,255,255,.65)!important;
   backdrop-filter:blur(18px) saturate(1.6);
@@ -280,7 +274,6 @@ header img.avatar-tilted{
   box-shadow:0 0 0 4px #fff, 0 0 0 7px var(--red-mid), 0 12px 30px rgba(190,18,60,.35);
 }
 
-/* ---------- כרטיסים: זכוכית + זוהר ---------- */
 main .bg-white.rounded-2xl,
 aside .bg-white{
   background:rgba(255,255,255,.72)!important;
@@ -295,7 +288,6 @@ section .bg-white.rounded-2xl:hover{
   box-shadow:0 30px 60px -20px rgba(190,18,60,.3), inset 0 1px 0 #fff!important;
 }
 
-/* ---------- כותרות ---------- */
 section h2{
   background:linear-gradient(90deg,#1e1b4b,#be123c);
   -webkit-background-clip:text; background-clip:text;
@@ -304,7 +296,6 @@ section h2{
 }
 section h2 .eng-tag{ -webkit-text-fill-color:#0f172a; }
 
-/* ---------- טאבים ---------- */
 .tab-btn{
   background:rgba(255,255,255,.7)!important;
   border:1px solid rgba(252,165,165,.45)!important;
@@ -318,7 +309,6 @@ section h2 .eng-tag{ -webkit-text-fill-color:#0f172a; }
   box-shadow:0 8px 20px -8px rgba(239,68,68,.35);
 }
 
-/* *** הטאב הפעיל – אדום בהיר *** */
 .tab-btn.active-tab,
 .tab-btn.active-tab:hover{
   background:linear-gradient(135deg,#fecaca 0%,#fca5a5 100%)!important;
@@ -328,24 +318,13 @@ section h2 .eng-tag{ -webkit-text-fill-color:#0f172a; }
   transform:translateX(-8px);
   box-shadow:0 12px 28px -8px rgba(248,113,113,.65), 0 0 0 4px rgba(254,202,202,.5)!important;
 }
-.tab-btn.active-tab .eng-tag{
-  background:rgba(255,255,255,.8)!important;
-  border-color:rgba(248,113,113,.6)!important;
-  color:var(--red-ink)!important;
-}
 
-/* ---------- תגיות אנגלית ---------- */
 .eng-tag{
   background:linear-gradient(180deg,#fff,#f1f5f9)!important;
   border:1px solid rgba(100,116,139,.35)!important;
   border-radius:9px!important;
 }
-.dark-box .eng-tag{
-  background:rgba(255,255,255,.16)!important;
-  border-color:rgba(255,255,255,.4)!important;
-}
 
-/* ---------- כפתורים ---------- */
 main button.bg-sky-600, main button.bg-sky-500{
   background:linear-gradient(135deg,#0ea5e9,#6366f1)!important;
   border-radius:16px!important;
@@ -354,7 +333,6 @@ main button.bg-sky-600, main button.bg-sky-500{
 }
 main button.bg-sky-600:hover{ transform:translateY(-2px) scale(1.01); filter:brightness(1.08); }
 
-/* ---------- תשובות בחירה / מבדק ---------- */
 label.cursor-pointer{ border-radius:14px!important; transition:all .2s; }
 label.cursor-pointer:hover{
   background:#fff1f2!important;
@@ -363,7 +341,6 @@ label.cursor-pointer:hover{
 }
 input[type=radio]{ accent-color:#ef4444; }
 
-/* ---------- סימולטור ---------- */
 #sim-stage{
   background:
     radial-gradient(circle at 50% 50%, rgba(254,202,202,.5), transparent 60%),
@@ -373,25 +350,20 @@ input[type=radio]{ accent-color:#ef4444; }
 #node-SW{ box-shadow:0 0 0 8px rgba(251,191,36,.2), 0 0 40px rgba(251,191,36,.55)!important; }
 #animated-packet{ box-shadow:0 0 30px rgba(56,189,248,.7)!important; }
 
-/* ---------- חלון CMD ---------- */
 .cmd-window{
   border-radius:16px!important;
   border:1px solid #334155!important;
   box-shadow:0 25px 50px -15px rgba(0,0,0,.5)!important;
 }
 
-/* ---------- בוט עזר ---------- */
 #bot-fab{ box-shadow:0 0 0 6px rgba(254,202,202,.6), 0 18px 40px rgba(190,18,60,.4)!important; }
 #bot-panel > div{ border-radius:24px!important; border-color:var(--red-mid)!important; }
 
-/* ---------- סרגל גלילה ---------- */
 ::-webkit-scrollbar-thumb{ background:linear-gradient(#fca5a5,#a78bfa)!important; }
 ::-webkit-scrollbar-track{ background:#fff1f2!important; }
 
-/* ---------- כניסה חלקה בהחלפת טאב ---------- */
 .tab-content.active{ animation:rise .5s cubic-bezier(.2,.8,.2,1); }
 @keyframes rise{ from{opacity:0; transform:translateY(14px)} to{opacity:1; transform:none} }
-
 </style>
 </head>
 <body>
@@ -415,17 +387,17 @@ input[type=radio]{ accent-color:#ef4444; }
 
 <div class="wrap">
 
+<!-- כותרת Hero מתוקנת ומצומצמת -->
 <header class="hero">
-  <div class="hero-text">
-    <div class="eyebrow">
-      <span>Introduction to Computer Networking · Interactive Lesson Plan</span>
-      <i data-lucide="sparkles" class="w-4 h-4"></i>
+  <div class="hero-inner" style="display: flex; align-items: center; justify-content: space-between; gap: 12px; flex-wrap: wrap;">
+    <div class="hero-main-group" style="display: flex; align-items: center; gap: 10px; flex-wrap: wrap;">
+      <img src="https://lh3.googleusercontent.com/d/1oIkZlLHZWtFgoDblyxziTALQZwsyxAOo" alt="אווטר המורה" class="hero-avatar-spin" style="width: 38px; height: 38px; border-radius: 50%; border: 2px solid #6b21a8; box-shadow: 0 0 10px rgba(107, 33, 168, 0.4), 0 0 0 2px #FFFFFF; object-fit: cover;">
+      <div class="hero-text-content" style="display: flex; flex-direction: column; gap: 1px;">
+        <div class="eyebrow" dir="ltr" style="font-size: 9.5px; padding: 1px 6px; border-radius: 10px; margin-bottom: 0;">intro_networking // 10.0.30.0/24</div>
+        <h1 class="title" style="font-size: 17px; font-weight: 900; color: #8b1e0f; margin: 0;">שיעור פתיחה והיכרות - עולם רשתות התקשורת</h1>
+        <p class="subtitle" style="font-size: 11px; margin: 0; color: #5c4731; font-weight: 700;">מערך שיעור חווייתי, אקטיבי וממושחק בן 60 דקות.</p>
+      </div>
     </div>
-    <div class="hero-title-wrap">
-      <img src="https://lh3.googleusercontent.com/d/1fzqv93VKIW_VT8-e1HdJxBmbU2sFnwlb" alt="אווטר מסתובב" class="hero-avatar-spin">
-      <h1 class="title">שיעור פתיחה והיכרות - <span>עולם רשתות התקשורת</span></h1>
-    </div>
-    <p class="subtitle" style="font-size: 1.25rem;">מערך שיעור חווייתי, אקטיבי וממושחק בן 60 דקות. הלמידה מבוססת סימולציה פיזית בכיתה, חוויית בעיות תקשורת בזמן אמת, ומיפוי המושגים שנובע מתוך התנסות התלמידים.</p>
   </div>
 </header>
 
@@ -807,7 +779,7 @@ function toggleConcept(card) {
 
 const challenges = [
     "🤫 אתגר דממה: העבירו פתק מתלמיד 2 לתלמיד 9 מבלי להוציא מילה מהפה!",
-    "⚠️ חסימת נתיב: הנתב יצא להפסקה! מצאו נתיב חלופי להעברת הפתק.",
+    "⚠️️ חסימת נתיב: הנתב יצא להפסקה! מצאו נתיב חלופי להעברת הפתק.",
     "🚀 עומס מידע: 4 תלמידים חייבים לשלוח פתקים בו-זמנית. איך תמנעו התנגשות?",
     "🔒 אבטחה: העבירו פתק מוצפן – רק התלמיד שמקבל אותו מורשה לפתוח וללחוץ את היד לשולח!",
     "⏱️ מרוץ נגד השעון: העבירו פתק מורכב דרך 5 תלמידים תוך פחות מ-10 שניות!"
